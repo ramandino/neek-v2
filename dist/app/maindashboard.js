@@ -3,7 +3,7 @@ import { supabase } from "./authkey.js";
 
 
 const id = localStorage.getItem("id");
-const email = localStorage.getItem("user_Email");
+
 
 
 let btntest = document.getElementById("testbtn");
@@ -13,13 +13,21 @@ const {data , error} = await supabase
     .select('name')
     .eq("id",id )
 
+    const email = localStorage.getItem("user_Email");
+    const name = data[0].name
 
-btntest.addEventListener("click",function(){
-    console.log("Email:", email);
-    console.log("Email:", data[0].name); // Do something with the resolved value
-    });
+    const info_Username = document.querySelector("#info_Username")
+    const info_Email = document.querySelector("#info_Email")
+
+    if (info_Username) info_Username.textContent += name
+    if (info_Email) info_Email.textContent += email
+
+// btntest.addEventListener("click",function(){
+//     console.log("Email:", email);
+//     console.log("Email:", [0].name); // Do something with the resolved value
+//     });
     
 
-
-
-
+btntest.addEventListener("click",function(){
+    console.log(name,email)
+})
