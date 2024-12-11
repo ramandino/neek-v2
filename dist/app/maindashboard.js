@@ -31,3 +31,15 @@ const {data , error} = await supabase
 btntest.addEventListener("click",function(){
     console.log(name,email)
 })
+
+let signout_btn = document.getElementById("signout_btn");
+
+
+
+
+signout_btn.addEventListener("click", async function(){
+    const { error } = await supabase.auth.signOut()
+    localStorage.clear()
+    window.location.href = "/dist/index.html"; 
+
+})
