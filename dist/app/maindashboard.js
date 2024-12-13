@@ -1,4 +1,3 @@
-
 import { supabase } from "./authkey.js";
 
 
@@ -28,9 +27,6 @@ const {data , error} = await supabase
 //     });
     
 
-btntest.addEventListener("click",function(){
-    console.log(name,email)
-})
 
 let signout_btn = document.getElementById("signout_btn");
 
@@ -43,3 +39,84 @@ signout_btn.addEventListener("click", async function(){
     window.location.href = "/dist/index.html"; 
 
 })
+
+
+let testtab = document.getElementById("tab_inversionistas");
+let reportes = document.getElementById("reportes");
+let inversionistas = document.getElementById("inversionistas");
+
+
+
+reportes.addEventListener("click", function(){
+    testtab.classList.add("hidden")
+})
+
+inversionistas.addEventListener("click", function(){
+    testtab.classList.remove("hidden")
+})
+
+// AGREGAR INVERSIONISTA A BASE DE DATOS
+let agregar_inversionistaform = document.getElementById("agregarinversionista")
+
+if (agregar_inversionistaform) {
+    agregar_inversionistaform.addEventListener("submit", async function (e) {
+        e.preventDefault()
+        let formData = new FormData(agregar_inversionistaform)
+        const values = Object.fromEntries(formData)
+
+        const {error} = await supabase
+        .from("inversionistas")
+        .insert(values)
+        
+        if (error){
+            console.log(error,"no sos mark")
+        }
+        agregar_inversionistaform.reset();
+
+    })
+    
+}
+// AGREGAR INVERSIONISTA A LA TABLA
+
+async function fetchinversionistas (){
+    const { data, error } = await supabase
+    .from('inversionistas')
+    .select()
+    return data
+}
+
+
+// console.log(fetchinversionistas())
+
+const agregarinversionista = new Promise((resolve,reject)=>{
+    resolve(fetchinversionistas())
+})
+
+let inversionistas_table = document.getElementById("inversionistas_table")
+agregarinversionista
+
+    .then(data =>{
+        let evenodd = ""
+        let  valores = data
+        valores.forEach(((valores,index) => {
+            if (index % 2 == 0) {
+                evenodd = "even"
+            }else{
+                evenodd = "odd"
+        }
+            inversionistas_table.innerHTML += 
+                `<tr class="tabletrstyle ${evenodd}"> <th scope="row" class="tableheadstyle"> ${valores.investor_name}</th> 
+                    <td class="${evenodd} px-6 py-4">${valores.investor_email}</td>
+                    <td class="${evenodd} px-6 py-4">${valores.investor_rol}</td>
+                    <td class="${evenodd} px-6 py-4">${valores.investment}</td>
+                </tr>`
+        }));
+    })
+
+    .catch(error =>{
+        console.log(error)
+    })
+
+
+
+

@@ -17,5 +17,23 @@
         -webkit-appearance: none;
         margin: 0;
         }
-    }       
+    }     
+    
+}
+@layer utilities {
+    .tabletrstyle {
+    border-bottom: 1px solid #d1d5db; /* Light mode border */
+    }
+    .odd {
+    background-color: white; /* Light mode odd rows */
+    }
+    .even {
+    background-color: #f9fafb; /* Light mode even rows */
+    }
+    .tableheadstyle {
+    padding: 1rem 1.5rem; /* px-6 py-4 */
+    font-weight: 500; /* font-medium */
+    color: #111827; /* Light mode text */
+    white-space: nowrap;
+    }
 }
