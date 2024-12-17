@@ -1,12 +1,9 @@
+
 import { supabase } from "./authkey.js";
 
+// esto agrega info del user al user icon
 
 const id = localStorage.getItem("id");
-
-
-
-let btntest = document.getElementById("testbtn");
-
 const {data , error} = await supabase
     .from('auth_users_data')
     .select('name')
@@ -20,32 +17,21 @@ const {data , error} = await supabase
 
     if (info_Username) info_Username.textContent += name
     if (info_Email) info_Email.textContent += email
-
-// btntest.addEventListener("click",function(){
-//     console.log("Email:", email);
-//     console.log("Email:", [0].name); // Do something with the resolved value
-//     });
     
-
-
+   
+// sign out y close session
 let signout_btn = document.getElementById("signout_btn");
-
-
-
-
 signout_btn.addEventListener("click", async function(){
     const { error } = await supabase.auth.signOut()
     localStorage.clear()
     window.location.href = "/dist/index.html"; 
-
 })
 
 
+// test para ocultar las tabs y demas
 let testtab = document.getElementById("tab_inversionistas");
 let reportes = document.getElementById("reportes");
 let inversionistas = document.getElementById("inversionistas");
-
-
 
 reportes.addEventListener("click", function(){
     testtab.classList.add("hidden")
@@ -55,7 +41,8 @@ inversionistas.addEventListener("click", function(){
     testtab.classList.remove("hidden")
 })
 
-// AGREGAR INVERSIONISTA A BASE DE DATOS
+
+// Agregar inversionistas a base de datos
 let agregar_inversionistaform = document.getElementById("agregarinversionista")
 
 if (agregar_inversionistaform) {
@@ -72,21 +59,16 @@ if (agregar_inversionistaform) {
             console.log(error,"no sos mark")
         }
         agregar_inversionistaform.reset();
-
     })
-    
 }
-// AGREGAR INVERSIONISTA A LA TABLA
 
+// AGREGAR INVERSIONISTA A LA TABLA
 async function fetchinversionistas (){
     const { data, error } = await supabase
     .from('inversionistas')
     .select()
     return data
 }
-
-
-// console.log(fetchinversionistas())
 
 const agregarinversionista = new Promise((resolve,reject)=>{
     resolve(fetchinversionistas())
