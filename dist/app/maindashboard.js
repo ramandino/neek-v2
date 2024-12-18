@@ -74,30 +74,60 @@ const agregarinversionista = new Promise((resolve,reject)=>{
     resolve(fetchinversionistas())
 })
 
-let inversionistas_table = document.getElementById("inversionistas_table")
-agregarinversionista
+// let inversionistas_table = document.getElementById("inversionistas_table")
+// agregarinversionista
 
-    .then(data =>{
-        let evenodd = ""
-        let  valores = data
-        valores.forEach(((valores,index) => {
-            if (index % 2 == 0) {
-                evenodd = "even"
-            }else{
-                evenodd = "odd"
-        }
-            inversionistas_table.innerHTML += 
-                `<tr class="tabletrstyle ${evenodd}"> <th scope="row" class="tableheadstyle"> ${valores.investor_name}</th> 
-                    <td class="${evenodd} px-6 py-4">${valores.investor_email}</td>
-                    <td class="${evenodd} px-6 py-4">${valores.investor_rol}</td>
-                    <td class="${evenodd} px-6 py-4">${valores.investment}</td>
-                </tr>`
-        }));
-    })
+//     .then(data =>{
+//         let evenodd = ""
+//         let  valores = data
+//         valores.forEach(((valores,index) => {
+//             if (index % 2 == 0) {
+//                 evenodd = "even"
+//             }else{
+//                 evenodd = "odd"
+//         }
+//             inversionistas_table.innerHTML += 
+//                 `<tr class="tabletrstyle ${evenodd}"> <th scope="row" class="tableheadstyle"> ${valores.investor_name}</th> 
+//                     <td class="${evenodd} px-6 py-4">${valores.investor_email}</td>
+//                     <td class="${evenodd} px-6 py-4">${valores.investor_rol}</td>
+//                     <td class="${evenodd} px-6 py-4">${valores.investment}</td>
+//                 </tr>`
+//         }));
+//     })
 
-    .catch(error =>{
-        console.log(error)
-    })
+//     .catch(error =>{
+//         console.log(error)
+//     })
+
+
+// DEAL TAB
+let div_Option_container = document.getElementById("div_option_container")
+let agregar_Deal_option = document.getElementById("agregardealoption")
+let optiondeal = 1
+
+
+
+document.getElementById('defaultModalButton').addEventListener('click', function() {
+    const modal = document.getElementById('defaultModal');
+    modal.classList.remove('hidden'); // Show the modal
+})
+
+agregar_Deal_option.addEventListener("click", function() {
+    let nuevodeal = document.createElement("input")
+    nuevodeal.name = `opcion ${optiondeal}`
+    nuevodeal.type = "text"
+    div_Option_container.appendChild(nuevodeal) 
+    optiondeal++
+})
+
+document.getElementById("agregarportolio").addEventListener("submit",function(e){
+    form = document.getElementById("formportolfio")
+    e.preventDefault()
+        let formData = new FormData(form)
+        const values = Object.fromEntries(formData)
+        form.reset();
+
+})
 
 
 
